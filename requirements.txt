@@ -1,3 +1,5 @@
-aiogram
+flask
+python-telegram-bot
 uvloop
 requests
+httpx
