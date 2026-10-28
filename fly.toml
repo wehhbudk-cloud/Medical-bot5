@@ -2,3 +2,5 @@ app = "medical-bot-5"
 primary_region = "ams"
 
 [build]
+  builder = "paketobuildpacks/builder:base"
+  
