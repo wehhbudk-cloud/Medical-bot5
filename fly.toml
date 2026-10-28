@@ -3,4 +3,6 @@ primary_region = "ams"
 
 [build]
   builder = "paketobuildpacks/builder:base"
-  
+
+[processes]
+  app = "python bot.py"
