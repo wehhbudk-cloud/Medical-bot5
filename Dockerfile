@@ -1,23 +1,23 @@
 FROM python:3.10-slim
 
-# ── Ensure unbuffered stdout so Fly.io captures logs in real time ──────
+# ضبط متغيرات البيئة لمنع التخزين المؤقت وحجم السجلات
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
 WORKDIR /app
 
-# ── Install system deps required by uvloop / pypdf (if wheels are absent)
+# تثبيت أدوات النظام المطلوبة لمكتبة uvloop وباقي التحسينات
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        gcc \
-        libffi-dev \
+    gcc \
+    libffi-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# ── Install Python deps first (layer caching) ─────────────────────────
+# تثبيت المكتبات من requirements.txt
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# ── Copy application code ─────────────────────────────────────────────
+# نسخ باقي ملفات المشروع
 COPY . .
 
-# ── Run the bot ────────────────────────────────────────────────────────
+# أمر تشغيل البوت
 CMD ["python", "bot.py"]
